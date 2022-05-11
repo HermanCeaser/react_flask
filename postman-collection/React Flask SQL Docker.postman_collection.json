@@ -1,0 +1,1624 @@
+{
+	"info": {
+		"_postman_id": "9ba14fe1-d39c-4ec4-a691-3f6aa6c5717d",
+		"name": "React Flask SQL Docker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Docker",
+			"item": [
+				{
+					"name": "[User] check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{docker_endpoint}}/api/{{version}}/users/check",
+							"host": [
+								"{{docker_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"users",
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[User] Add User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"token\", jsonData.token);\r",
+									"pm.collectionVariables.set(\"user_id\", jsonData.user_id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"vaibhavhiwase\",\r\n    \"password\":\"password\",\r\n    \"email\": \"vaibhav.hiwase@celebaltech.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{docker_endpoint}}/api/{{version}}/users",
+							"host": [
+								"{{docker_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[User-Auth] Sign in user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"token\", jsonData.token);\r",
+									"pm.collectionVariables.set(\"user_id\", jsonData.user_id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "vaibhavhiwase",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"vaibhavhiwase\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{docker_endpoint}}/api/{{version}}/users/signin",
+							"host": [
+								"{{docker_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"users",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[User-Auth] authorized access ping user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "vaibhavhiwase",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{docker_endpoint}}/api/{{version}}/users/ping",
+							"host": [
+								"{{docker_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"users",
+								"ping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Auth] authorized access by Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{docker_endpoint}}/api/{{version}}/auth/resource",
+							"host": [
+								"{{docker_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"auth",
+								"resource"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Auth] authorized access by Basic Auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "vaibhavhiwase",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{docker_endpoint}}/api/{{version}}/auth/resource",
+							"host": [
+								"{{docker_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"auth",
+								"resource"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Root] check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{docker_endpoint}}/check",
+							"host": [
+								"{{docker_endpoint}}"
+							],
+							"path": [
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Root] authorized access ping",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "vaibhavhiwase",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{docker_endpoint}}/ping",
+							"host": [
+								"{{docker_endpoint}}"
+							],
+							"path": [
+								"ping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Root] check static",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{docker_endpoint}}/static/hello.txt",
+							"host": [
+								"{{docker_endpoint}}"
+							],
+							"path": [
+								"static",
+								"hello.txt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Root] check media",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{docker_endpoint}}/media/hello.txt",
+							"host": [
+								"{{docker_endpoint}}"
+							],
+							"path": [
+								"media",
+								"hello.txt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Root] upload media",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{docker_endpoint}}/upload",
+							"host": [
+								"{{docker_endpoint}}"
+							],
+							"path": [
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Delay] check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{docker_endpoint}}/api/{{version}}/delay/check",
+							"host": [
+								"{{docker_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"delay",
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Delay] sync",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"job_id\", jsonData.data.job_id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "webhook_endpoint",
+									"value": "http://52.172.224.181:5000",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "delay",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "file1",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "file2",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{docker_endpoint}}/api/{{version}}/delay/sync",
+							"host": [
+								"{{docker_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"delay",
+								"sync"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Delay] async",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"job_id\", jsonData.data.job_id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "webhook_endpoint",
+									"value": "http://52.172.224.181:5000",
+									"type": "text"
+								},
+								{
+									"key": "delay",
+									"value": "15",
+									"type": "text"
+								},
+								{
+									"key": "file1",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "file2",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{docker_endpoint}}/api/{{version}}/delay/async/jobs",
+							"host": [
+								"{{docker_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"delay",
+								"async",
+								"jobs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Delay]",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{docker_endpoint}}/api/{{version}}/delay/async/jobs/{{job_id}}",
+							"host": [
+								"{{docker_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"delay",
+								"async",
+								"jobs",
+								"{{job_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Nginx Docker",
+			"item": [
+				{
+					"name": "[User] check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{nginx_endpoint}}/api/{{version}}/users/check",
+							"host": [
+								"{{nginx_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"users",
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[User] Add User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"token\", jsonData.token);\r",
+									"pm.collectionVariables.set(\"user_id\", jsonData.user_id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"vaibhavhiwase\",\r\n    \"password\":\"password\",\r\n    \"email\": \"vaibhav.hiwase@celebaltech.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{nginx_endpoint}}/api/{{version}}/users",
+							"host": [
+								"{{nginx_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[User-Auth] Sign in user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"token\", jsonData.token);\r",
+									"pm.collectionVariables.set(\"user_id\", jsonData.user_id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "vaibhavhiwase",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"vaibhavhiwase\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{nginx_endpoint}}/api/{{version}}/users/signin",
+							"host": [
+								"{{nginx_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"users",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[User-Auth] authorized access ping user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "vaibhavhiwase",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{nginx_endpoint}}/api/{{version}}/users/ping",
+							"host": [
+								"{{nginx_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"users",
+								"ping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Auth] authorized access by Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{nginx_endpoint}}/api/{{version}}/auth/resource",
+							"host": [
+								"{{nginx_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"auth",
+								"resource"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Auth] authorized access by Basic Auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "vaibhavhiwase",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{nginx_endpoint}}/api/{{version}}/auth/resource",
+							"host": [
+								"{{nginx_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"auth",
+								"resource"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Root] check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{nginx_endpoint}}/check",
+							"host": [
+								"{{nginx_endpoint}}"
+							],
+							"path": [
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Root] check load balancing",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{nginx_endpoint}}/loadbalancing/check",
+							"host": [
+								"{{nginx_endpoint}}"
+							],
+							"path": [
+								"loadbalancing",
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Root] authorized access ping",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "vaibhavhiwase",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{nginx_endpoint}}/ping",
+							"host": [
+								"{{nginx_endpoint}}"
+							],
+							"path": [
+								"ping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Root] check static",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{nginx_endpoint}}/static/hello.txt",
+							"host": [
+								"{{nginx_endpoint}}"
+							],
+							"path": [
+								"static",
+								"hello.txt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Root] check media",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{nginx_endpoint}}/media/hello.txt",
+							"host": [
+								"{{nginx_endpoint}}"
+							],
+							"path": [
+								"media",
+								"hello.txt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Root] upload media",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{nginx_endpoint}}/upload",
+							"host": [
+								"{{nginx_endpoint}}"
+							],
+							"path": [
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Delay] check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{nginx_endpoint}}/api/{{version}}/delay/check",
+							"host": [
+								"{{nginx_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"delay",
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Delay] sync",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"job_id\", jsonData.data.job_id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "webhook_endpoint",
+									"value": "http://52.172.224.181:5000",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "delay",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "file1",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "file2",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{nginx_endpoint}}/api/{{version}}/delay/sync",
+							"host": [
+								"{{nginx_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"delay",
+								"sync"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Delay] async",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"job_id\", jsonData.data.job_id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "webhook_endpoint",
+									"value": "http://52.172.224.181:5000",
+									"type": "text"
+								},
+								{
+									"key": "delay",
+									"value": "15",
+									"type": "text"
+								},
+								{
+									"key": "file1",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "file2",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{nginx_endpoint}}/api/{{version}}/delay/async/jobs",
+							"host": [
+								"{{nginx_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"delay",
+								"async",
+								"jobs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Delay]",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{nginx_endpoint}}/api/{{version}}/delay/async/jobs/{{job_id}}",
+							"host": [
+								"{{nginx_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"delay",
+								"async",
+								"jobs",
+								"{{job_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Local",
+			"item": [
+				{
+					"name": "[User] check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_endpoint}}/api/{{version}}/users/check",
+							"host": [
+								"{{local_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"users",
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[User] Add User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"token\", jsonData.token);\r",
+									"pm.collectionVariables.set(\"user_id\", jsonData.user_id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"vaibhavhiwase\",\r\n    \"password\":\"password\",\r\n    \"email\": \"vaibhav.hiwase@celebaltech.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_endpoint}}/api/{{version}}/users",
+							"host": [
+								"{{local_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[User-Auth] Sign in user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"token\", jsonData.token);\r",
+									"pm.collectionVariables.set(\"user_id\", jsonData.user_id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "vaibhavhiwase",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"vaibhavhiwase\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local_endpoint}}/api/{{version}}/users/signin",
+							"host": [
+								"{{local_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"users",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[User-Auth] authorized access ping user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "vaibhavhiwase",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_endpoint}}/api/{{version}}/users/ping",
+							"host": [
+								"{{local_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"users",
+								"ping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Auth] authorized access by Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_endpoint}}/api/{{version}}/auth/resource",
+							"host": [
+								"{{local_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"auth",
+								"resource"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Auth] authorized access by Basic Auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "vaibhavhiwase",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_endpoint}}/api/{{version}}/auth/resource",
+							"host": [
+								"{{local_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"auth",
+								"resource"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Root] check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_endpoint}}/check",
+							"host": [
+								"{{local_endpoint}}"
+							],
+							"path": [
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Root] authorized access ping",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "vaibhavhiwase",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_endpoint}}/ping",
+							"host": [
+								"{{local_endpoint}}"
+							],
+							"path": [
+								"ping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Delay] check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_endpoint}}/api/{{version}}/delay/check",
+							"host": [
+								"{{local_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"delay",
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Delay] sync",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"job_id\", jsonData.data.job_id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "webhook_endpoint",
+									"value": "http://52.172.224.181:5000",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "delay",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "file1",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "file2",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local_endpoint}}/api/{{version}}/delay/sync",
+							"host": [
+								"{{local_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"delay",
+								"sync"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Delay] async",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"job_id\", jsonData.data.job_id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "webhook_endpoint",
+									"value": "http://52.172.224.181:5000",
+									"type": "text"
+								},
+								{
+									"key": "delay",
+									"value": "15",
+									"type": "text"
+								},
+								{
+									"key": "file1",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "file2",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local_endpoint}}/api/{{version}}/delay/async/jobs",
+							"host": [
+								"{{local_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"delay",
+								"async",
+								"jobs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Delay]",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_endpoint}}/api/{{version}}/delay/async/jobs/{{job_id}}",
+							"host": [
+								"{{local_endpoint}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"delay",
+								"async",
+								"jobs",
+								"{{job_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "local_endpoint",
+			"value": "http://localhost:5000",
+			"type": "string"
+		},
+		{
+			"key": "docker_endpoint",
+			"value": "http://localhost:5004",
+			"type": "string"
+		},
+		{
+			"key": "nginx_endpoint",
+			"value": "http://localhost:1337",
+			"type": "string"
+		},
+		{
+			"key": "version",
+			"value": "v1",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "user_id",
+			"value": ""
+		},
+		{
+			"key": "job_id",
+			"value": ""
+		}
+	]
+}

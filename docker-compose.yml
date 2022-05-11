@@ -1,0 +1,97 @@
+version: '3.8'
+
+services:
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    image: server
+    container_name: server
+    volumes:
+      - app-volume:/usr/src/app
+    ports:
+      - 5004:5000
+    environment:
+      - SQLALCHEMY_DATABASE_URI=mysql+pymysql://username:password@dbserver/flaskDB
+      - SECRET_KEY="d68653675379485599f7876a3b469a57"
+      - REDIS_URL=redis://redis:6379/0
+      - APP_FOLDER=/usr/src/app
+    links:
+      - mysql:dbserver
+    restart: always
+    depends_on:
+      - mysql
+      - redis
+
+
+  worker:
+    image: server
+    command: python3 -u manage.py run_worker
+    volumes:
+      - app-volume:/usr/src/app
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - APP_FOLDER=/usr/src/app
+    depends_on:
+      - redis
+      - server
+
+
+  redis:
+    image: redis:6.2-alpine
+    container_name: redis
+    ports:
+      - 6379:6379
+
+
+  mysql:
+    image: "mysql/mysql-server:5.7"
+    container_name: mysql
+    volumes:
+      - app-volume:/usr/src/app
+    env_file: ./database/.env-mysql
+    restart: always
+
+
+  dashboard:
+    build: ./server/dashboard
+    image: dashboard
+    container_name: dashboard
+    ports:
+      - 9181:9181
+    command: rq-dashboard -H redis
+    depends_on:
+      - redis
+
+
+  webhook:
+    build: ./server/webhook
+    image: webhook
+    container_name: webhook
+    ports:
+      - 8888:8888
+    environment:
+      - WEBHOOK_ENDPOINT=http://webhook:8888
+
+
+  client:
+    stdin_open: true
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    image: client
+    container_name: client
+    ports:
+      - 3007:3000
+    environment:
+      - NODE_ENV=development
+      # - REACT_APP_API_SERVICE_URL=${REACT_APP_API_SERVICE_URL}
+      - REACT_NATIVE_PACKAGER_HOSTNAME=http://localhost:5004
+    depends_on:
+      - server
+
+
+volumes:
+  app-volume:
+    name: app-volume-001

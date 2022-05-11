@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+
+  master:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    image: master
+    container_name: master
+    ports:
+      - 5004:5000
+    environment:
+      - SQLALCHEMY_DATABASE_URI=mysql+pymysql://username:password@dbserver/flaskDB
+      - SECRET_KEY="d68653675379485599f7876a3b469a57"
+      - REDIS_URL=redis://redis:6379/0
+      - APP_FOLDER=/home/app/server/
+      - PORT=5000
+    links:
+      - mysql:dbserver
+    restart: always
+    depends_on:
+      - mysql
+      - redis
+
+  worker:
+    image: master
+    command: python3 -u manage.py run_worker
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - APP_FOLDER=/home/app/server/
+    depends_on:
+      - redis
+      - master
+
+  redis:
+    image: redis:6.2-alpine
+    container_name: redis
+    ports:
+      - 6379:6379
+
+  mysql:
+    image: "mysql/mysql-server:5.7"
+    container_name: mysql
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_DATABASE=flaskDB
+      - MYSQL_USER=username
+      - MYSQL_PASSWORD=password
+    restart: always
+
+  dashboard:
+    build: ./dashboard
+    image: dashboard
+    container_name: dashboard
+    ports:
+      - 9181:9181
+    command: rq-dashboard -H redis
+    depends_on:
+      - redis
+
+  webhook:
+    build: ./webhook
+    image: webhook
+    container_name: webhook
+    ports:
+      - 8888:8888
+    environment:
+      - WEBHOOK_ENDPOINT=http://webhook:8888

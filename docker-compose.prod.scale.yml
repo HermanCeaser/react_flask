@@ -1,0 +1,165 @@
+version: '3.8'
+
+services:
+
+  server1:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.scale
+    image: server1
+    container_name: server1
+    command: gunicorn --bind 0.0.0.0:5001 --access-logfile - --error-logfile - manage:app
+    volumes:
+      - static_volume:/home/app/server/client/static/
+      - media_volume:/home/app/server/client/media/
+    expose:
+      - 5001
+    environment:
+      - SQLALCHEMY_DATABASE_URI=mysql+pymysql://username:password@dbserver/flaskDB
+      - SECRET_KEY="d68653675379485599f7876a3b469a57"
+      - REDIS_URL=redis://redis:6379/0
+      - APP_FOLDER=/home/app/server/
+      - PORT=5001
+    links:
+      - mysql:dbserver
+    restart: always
+    depends_on:
+      - mysql
+      - redis
+
+
+  server2:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.scale
+    image: server2
+    container_name: server2
+    command: gunicorn --bind 0.0.0.0:5002 --access-logfile - --error-logfile - manage:app
+    volumes:
+      - static_volume:/home/app/server/client/static/
+      - media_volume:/home/app/server/client/media/
+    expose:
+      - 5002
+    environment:
+      - SQLALCHEMY_DATABASE_URI=mysql+pymysql://username:password@dbserver/flaskDB
+      - SECRET_KEY="d68653675379485599f7876a3b469a57"
+      - REDIS_URL=redis://redis:6379/0
+      - APP_FOLDER=/home/app/server/
+      - PORT=5002
+    links:
+      - mysql:dbserver
+    restart: always
+    depends_on:
+      - mysql
+      - redis
+
+
+  worker1:
+    image: server1
+    command: python3 -u manage.py run_worker
+    volumes:
+      - static_volume:/home/app/server/client/static/
+      - media_volume:/home/app/server/client/media/
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - APP_FOLDER=/home/app/server/
+    depends_on:
+      - redis
+      - server1
+
+
+  worker2:
+    image: server2
+    command: python3 -u manage.py run_worker
+    volumes:
+      - static_volume:/home/app/server/client/static/
+      - media_volume:/home/app/server/client/media/
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - APP_FOLDER=/home/app/server/
+    depends_on:
+      - redis
+      - server2
+
+
+  redis:
+    image: redis:6.2-alpine
+    container_name: redis
+    ports:
+      - 6379:6379
+
+
+  mysql:
+    image: "mysql/mysql-server:5.7"
+    container_name: mysql
+    volumes:
+      - db-volume:/home/app/database
+    env_file: ./database/.env-mysql
+    restart: always
+
+
+  dashboard:
+    build: ./server/dashboard
+    image: dashboard
+    container_name: dashboard
+    ports:
+      - 9181:9181
+    command: rq-dashboard -H redis
+    depends_on:
+      - redis
+
+
+  webhook:
+    build: ./server/webhook
+    image: webhook
+    container_name: webhook
+    ports:
+      - 8888:8888
+    environment:
+      - WEBHOOK_ENDPOINT=http://webhook:8888
+
+
+  client:
+    stdin_open: true
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    image: client
+    container_name: client
+    volumes:
+      - static_volume:/usr/src/app/static
+      - media_volume:/usr/src/app/media
+    ports:
+      - 3007:3000
+    environment:
+      - NODE_ENV=development
+      # - REACT_APP_API_SERVICE_URL=${REACT_APP_API_SERVICE_URL}
+      - REACT_NATIVE_PACKAGER_HOSTNAME=http://localhost:1337
+    depends_on:
+      - server1
+      - server2
+
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.scale
+    image: nginx
+    container_name: nginx
+    volumes:
+      - static_volume:/home/app/server/client/static/
+      - media_volume:/home/app/server/client/media/
+    ports:
+      - 1337:8080
+    depends_on:
+      - server1
+      - server2
+
+
+volumes:
+  db-volume:
+    name: db-volume-001
+  static_volume:
+    name: static_volume-001
+  media_volume:
+    name: media_volume-001
