@@ -67,6 +67,7 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get(
         "SQLALCHEMY_DATABASE_URI"
     ) or "sqlite:///" + os.path.join(basedir, "data-dev.sqlite")
+    print("SQLALCHEMY_DATABASE_URI", SQLALCHEMY_DATABASE_URI)
 
     @classmethod
     def init_app(cls, app):
@@ -111,7 +112,11 @@ class TestingConfig(Config):
 
 class ProductionConfig(Config):
     SSL_REDIRECT = True if os.environ.get("HTTPS_REDIRECT") else False
-    SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI")
+    azure_db_for_mysql = "mysql+pymysql://celebaltartan:password\
+@celebal-tartan-db.mysql.database.azure.com:3306/flaskproddb?ssl_ca=./app/database/DigiCertGlobalRootCA.crt.pem"
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        "SQLALCHEMY_DATABASE_URI", azure_db_for_mysql
+    )
 
     @classmethod
     def init_app(cls, app):

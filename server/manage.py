@@ -6,17 +6,27 @@ import redis
 from app import User, auth, create_app, db
 from flask import jsonify, request, send_from_directory
 from flask.cli import FlaskGroup
+from flask_cors import CORS
 from flask_migrate import Migrate
 from rq import Connection, Worker
 from werkzeug.utils import secure_filename
-from flask_cors import CORS
 
 app = create_app(os.getenv("FLASK_CONFIG") or "default")
-# A Flask extension for handling Cross Origin Resource 
+# A Flask extension for handling Cross Origin Resource
 # Sharing (CORS), making cross-origin AJAX possible.
 CORS(app)
 migrate = Migrate(app, db)
 cli = FlaskGroup(app)
+
+
+@app.errorhandler(404)
+def not_found(e):
+    return app.send_static_file("index.html")
+
+
+@app.route("/")
+def index():
+    return app.send_static_file("index.html")
 
 
 @app.shell_context_processor

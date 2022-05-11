@@ -34,3 +34,4 @@ requests==2.27.1
 httpie==3.1.0
 coverage==6.3.2
 Flask-Cors==3.0.10
+mysql-connector-python==8.0.29

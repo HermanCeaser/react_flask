@@ -1,0 +1,39 @@
+.app-navbar{
+    background: #fff !important;
+}
+.app-navbar .navbar-logo{
+    width: 120px;
+}
+.train-btn{
+    color: #fff;
+    background: #146AFF;
+    padding: 2px 15px 2.5px;
+    border-radius: 5px;
+}
+.quick-btn{
+    color: #146AFF;
+    border: 1px solid #146AFF;
+    padding: 1px 15px 2px;
+    border-radius: 5px;
+}
+.app-navbar .navbaritem{
+    color: #051367;
+    font-size: 14px;
+    letter-spacing: .4px;
+}
+.app-navbar .navbaritem.active{
+    padding-bottom: 10px;
+    border-bottom: 3px solid #051367;
+}
+footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    background: #161525;
+}
+
+@media only screen and (max-width: 426px){
+    .app-navbar li{
+        padding: 5px 0;
+    }
+}

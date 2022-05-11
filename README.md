@@ -1,7 +1,13 @@
-# react_native-python_flask-sql-nignx-with-authentication-boilerplate
+# Azure Custom Vision Payslip Classification Training
 
 There are 2 apps in this repository: the backend micro service and the frontend client. The backend is managed by python and flask + any SQL DB. The frontend is built with react-native. There is already implemented the auth service in both sides.
 There are 2 main pages in a StackNavigator: Login and Register. The state of app is managed by Redux and after a successful login there is a TabNavigator template ready to be filled.
+
+
+## Delete __pycache__ files
+```sh
+find . | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf
+```
 
 # Environment Setup
 The command that creates a virtual environment has the following structure:
@@ -38,40 +44,119 @@ You can add this secret in environment variables as follows:
 SECRET_KEY="d68653675379485599f7876a3b469a57"
 ```
 
-# Quick Start End to End Pipeline
-```
-$ docker-compose down -v
-$ docker-compose up -d --build --scale worker=4
-```
-
-UI Application will be up at http://localhost:3007
-
-APIs will be up at http://localhost:5004/
-Example: http://localhost:5004/check, http://localhost:5004/api/v1/users/check, http://localhost:5004/api/v1/delay/check
-
 # Quick Start for Production
 ```
 $ docker-compose -f docker-compose.prod.yml down -v
 $ docker-compose -f docker-compose.prod.yml up -d --build --scale worker=4
 ```
 
-UI Application will be up at http://localhost:3007
+UI Application and APIs will be up at http://localhost:3000
 
-APIs will be up at http://localhost:1337/
-Example: http://localhost:1337/check, http://localhost:1337/api/v1/users/check, http://localhost:1337/api/v1/delay/check
+APIs will be up at http://localhost:3000/
+Example: http://localhost:3000/check, http://localhost:3000/api/v1/users/check, http://localhost:3000/api/v1/delay/check
 
-# Load balance in production
-
+# Tree of Production
+Go to master container and type below command
 ```
-$ docker-compose -f docker-compose.prod.scale.yml down -v
-$ docker-compose -f docker-compose.prod.scale.yml up -d --build --scale worker1=4 --scale worker2=2
+cd /app
+python
 ```
+```
+>>> import os
+def list_files(startpath):
+    for root, dirs, files in os.walk(startpath):
+        level = root.replace(startpath, '').count(os.sep)
+        indent = ' ' * 4 * (level)
+        print('{}{}/'.format(indent, os.path.basename(root)))
+        subindent = ' ' * 4 * (level + 1)
+        for f in files:
+            print('{}{}'.format(subindent, f))
 
-UI Application will be up at http://localhost:3007
-
-APIs will be up at http://localhost:1337/
-
-Example: http://localhost:1337/check, http://localhost:1337/api/v1/users/check, http://localhost:1337/api/v1/delay/check
+>>> list_files(startpath='.')
+```
+Working Directory is /app
+```
+./
+    server/
+        config.py
+        manage.py
+        app/
+            exceptions.py
+            __init__.py
+            database/
+                DigiCertGlobalRootCA.crt.pem
+                db.py
+                commonfile.py
+                __init__.py
+            api/
+                __init__.py
+                v1/
+                    __init__.py
+                    datastructure/
+                        ds.py
+                        commonfile.py
+                        __init__.py
+                    quicktest/
+                        env.py
+                        __init__.py
+                        routes.py
+                    users/
+                        models.py
+                        commonfile.py
+                        __init__.py
+                        routes.py
+                    iteration/
+                        env.py
+                        __init__.py
+                        routes.py
+                    delay/
+                        jobs.py
+                        commonfile.py
+                        __init__.py
+                        routes.py
+                    security/
+                        commonfile.py
+                        authentication.py
+                        __init__.py
+                    upload/
+                        env.py
+                        __init__.py
+                        routes.py
+                    common/
+                        utils.py
+                        commonfile.py
+                        job_callbacks.py
+                        __init__.py
+    requirements/
+        production.txt
+    build/
+        robots.txt
+        logo192.png
+        logo512.png
+        favicon.ico
+        asset-manifest.json
+        index.html
+        manifest.json
+        static/
+            media/
+                icon-bin.31736ba1912a8dd1a7ccd4a2ec883b27.svg
+                rss_tag.eb0591134edcd259c17bdc1f1659861a.svg
+                sample.68555efe97a1b7b4a144.webp
+                ct_logo.ab57328da32d97d85c58.webp
+                bell.cf0eff2ae5cd02b61b1b.webp
+                icon-add.5a745aa9cd4ca7c8af406294f7117a2d.svg
+                login_left.16b9fb8e21057b4969d710c1cc83f481.svg
+                icoico.085c487019da97c5388aa144b3967ee7.svg
+            css/
+                main.8c09243a.css.map
+                main.8c09243a.css
+            js/
+                main.d38db11c.js
+                main.d38db11c.js.map
+                787.635aedaa.chunk.js.map
+                787.635aedaa.chunk.js
+                main.d38db11c.js.LICENSE.txt
+```
 
 
 # Docker Installation steps
@@ -195,9 +280,6 @@ Docker Compose relies on Docker Engine for any meaningful work, so make sure you
 sudo apt install docker-compose
 ```
 
-# Acknowledgements and credits
+# Acknowledgements
 
-This project is currently maintained by [Vaibhav Hiwase](https://github.com/vhiwase) and would not have been possible without the support of:
-
-- [Michael Herman](https://github.com/mjhea0) to the community with his blog post on [Dockerizing Flask with Postgres, Gunicorn, and Nginx](https://testdriven.io/blog/dockerizing-flask-with-postgres-gunicorn-and-nginx/) and [Asynchronous Tasks with Flask and Redis Queue](https://testdriven.io/blog/asynchronous-tasks-with-flask-and-redis-queue/)
-- [Miguel Grinberg](https://github.com/miguelgrinberg) by his awesome book on [Flask Web Development, 2nd Edition](https://www.oreilly.com/library/view/flask-web-development/9781491991725/) and [tutorial](https://www.flaskbook.com/).
+This project is currently maintained by Vaibhav Hiwase.

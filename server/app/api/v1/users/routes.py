@@ -67,17 +67,40 @@ def new_user():
             return jsonify({"error": str(e)})
 
 
+@api.route("/users", methods=["DELETE"])
+@auth.login_required
+def delete_user():
+    username = request.json.get("username")
+    password = request.json.get("password")
+    email = request.json.get("email")
+    user = User.query.filter_by(username=username).first()
+    password_verified = user.verify_password(password)
+    if password_verified and user.username == username and user.email == email:
+        user = User.query.filter_by(username=username).delete()
+        db.session.commit()
+        return jsonify({"message": "User deleted successfully"})
+    else:
+        return jsonify(
+            {
+                "message": "User not deleted. Please check enter correct username, password and email."
+            }
+        )
+
+
 @api.route("/users/signin", methods=["POST"])
 @auth.login_required
 def get_user():
     username = request.json.get("username")
     user = User.query.filter_by(username=username).first()
-    print(user)
-    print(username)
     if not user:
         abort(400)
     return jsonify(
-        {"user_id": user.id, "token": user.generate_auth_token(600).decode("ascii")}
+        {
+            "user_id": user.id,
+            "token": user.generate_auth_token(600).decode("ascii"),
+            "username": user.username,
+            "email": user.email,
+        }
     )
 
 

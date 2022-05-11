@@ -5,7 +5,10 @@ api = Blueprint("api", __name__)
 from .common import *
 from .datastructure import *
 from .delay import *
+from .iteration import *
+from .quicktest import *
 from .security import *
+from .upload import *
 from .users import *
 
 __all__ = (
@@ -14,6 +17,9 @@ __all__ = (
     + common.__all__
     + datastructure.__all__
     + delay.__all__
+    + upload.__all__
+    + iteration.__all__
+    + quicktest.__all__
 )
 
 # Note: Here commonfile_function() namespace is present in all packages

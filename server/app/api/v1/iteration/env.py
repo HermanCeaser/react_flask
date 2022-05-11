@@ -1,0 +1,6 @@
+endpoint = "https://workshopcustomvision.cognitiveservices.azure.com"
+project_id = "16bb36e2-eb0c-44d0-a28e-35c4d5412bdc"
+training_key = "b0b9174957b74adcafc2004d9cfb106d"
+iteration_id = "20377193-77e8-405d-a403-b57ded4065f7"
+prediction_id = "383ee8b483534323aa7db99afabf7f6a"
+version = "v3.3"

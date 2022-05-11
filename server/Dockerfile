@@ -22,7 +22,6 @@ RUN pip install -r requirements/production.txt
 
 # copy source code
 COPY app app
-COPY client client
 # COPY migrations migrations
 COPY manage.py config.py ./
 

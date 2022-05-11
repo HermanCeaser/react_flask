@@ -1,0 +1,27 @@
+.login-container{
+    max-height: 95vh;
+}
+.left-login{
+    height: 100%;
+}
+.left-login img{
+    max-height: 90vh;
+}
+.tartan-logo img{
+    width: 150px;
+}
+.login-input{
+    color: #000 !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .input-width {
+        width: 13rem;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .left-login img{
+        width: 100%;
+    }
+}

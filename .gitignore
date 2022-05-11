@@ -139,7 +139,22 @@ data-dev.sqlite
 data.sqlite
 dev-error.log
 test-error.log
-server/client
 server/profile_dir
-client/media
-client/static
+npm-debug.log*
+.DS_Store
+
+# production
+/build
+client/build
+server/build
+
+# dependencies
+/node_modules
+client/node_modules
+/.pnp
+client/.pnp
+.pnp.js
+client/.pnp.js
+venv
+client/venv
+server/venv

@@ -1,0 +1,75 @@
+.matrix-sidebar{
+    background: #E9F0FF;
+    height: 100%;
+    overflow: auto;
+}
+.matrix-sidebar h6{
+    color: #051367;
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 7px;
+}
+.pagepage2 h5{
+    color:#051367;
+    font-weight: 400;
+    font-size: 16px;
+    margin-bottom: 10px;
+    opacity: 1;
+}
+.pagepage2.active{
+    background-color: #C3D6FE;
+}
+.pagepage2 .text-bgy{
+    text-transform: uppercase;
+    color: #3135C6;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.pagepage2 .text-new{
+    text-transform: uppercase;
+    color: #12D157;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.pagepage1 h5{
+    color:#051367;
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 7px;
+}
+.pagepage{
+    margin:  0 auto;
+    text-align: center;
+}
+.pagepage h6{
+    color: #051367;
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+.matrix-sidebar select {
+    background-color: transparent !important;
+    padding: 4px 10px;
+    border: 1px solid #146AFF !important;
+}
+.matrix-sidebar .orderby span{
+    color: #646464;
+    font-size: 13px;
+}
+.hh-full{
+    min-height: 80vh;
+}
+.matrix-sidebar .orderby input{
+    text-align: right;
+}
+.data-info{
+    font-size: 14px;
+}
+
+@media only screen and (max-width: 426px) {
+    .hh-full{
+        min-height: unset;
+    }
+}

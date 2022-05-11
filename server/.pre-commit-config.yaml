@@ -13,7 +13,7 @@ repos:
     - id: trailing-whitespace
     - id: check-case-conflict
     - id: check-added-large-files
-      exclude: ^pre-commit
+      exclude: .*pre-commit*|.*package-lock.json*
     - id: check-merge-conflict
 -   repo: https://github.com/ambv/black
     rev: 22.3.0
@@ -24,7 +24,7 @@ repos:
     hooks:
     - id: flake8
       args: [
-          "--max-line-length=110",
+          "--max-line-length=150",
           "--max-complexity=18",
           "--config=setup.cfg",
           "--ignore=T001,T003,E402"

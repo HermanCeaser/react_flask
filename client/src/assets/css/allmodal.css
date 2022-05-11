@@ -1,0 +1,62 @@
+.modal-heading{
+    color: #051367;
+    font-size: 1.1rem;
+}
+
+.body-heading{
+    color: #051367;
+    font-size: 16px;
+    font-weight: 500;
+}
+.modalclosebutton{
+    color: #000;
+    border: 1px solid #146AFF;
+    color: #146AFF;
+}
+.train-budget{
+    color: #051367;
+    font-weight: 500;
+}
+.train-budget span{
+    font-weight: normal;
+}
+.emailnotification p{
+    color: #606060;
+    font-size: .95rem;
+    font-weight: 500;
+}
+.noticationmodal{
+   position: absolute;
+   top: 4rem;
+   right: 2rem;
+   bottom: 0;
+   z-index: 10040;
+   overflow: auto;
+   overflow-y: auto;
+}
+.no-notification{
+    text-align: center;
+    margin: 5rem 0;
+}
+.no-notification .bellicon{
+    color: #e5e5e5;
+    width: 100px;
+    height: 100px;
+    margin:  0 auto;
+}
+.no-notification p{
+    color: #afafaf;
+    margin-top: 1rem;
+}
+
+@media only screen and (max-width: 768px){
+    .noticationmodal{
+        position: relative;
+        top: 4rem;
+        right: 0;
+        bottom: 0;
+        z-index: 10040;
+        overflow: auto;
+        overflow-y: auto;
+     }
+}

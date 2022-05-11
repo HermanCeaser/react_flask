@@ -39,7 +39,7 @@ login_manager.login_view = "auth.login"
 
 
 def create_app(config_name=None):
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder="../../build", static_url_path="/")
     if config_name is None:
         config_name = os.getenv("FLASK_CONFIG") or "default"
     app.config.from_object(config[config_name])
