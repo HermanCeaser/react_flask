@@ -8,48 +8,20 @@ services:
     container_name: master
     ports:
       - 5004:5000
-    # volumes:
-    #   - app-volume:/usr/src/app
     volumes:
       - .:/usr/src/app
-    # environment:
-    #   - FLASK_DEBUG=1
-    #   - REDIS_URL=redis://redis:6379/0
     env_file:
       - ./.env.dev
-    depends_on:
-      - redis
 
   worker:
     image: master
     command: python3 -u manage.py run_worker
-    # volumes:
-    #   - app-volume:/usr/src/app
     volumes:
       - .:/usr/src/app
-    # environment:
-    #   - REDIS_URL=redis://redis:6379/0
     env_file:
       - ./.env.dev
     depends_on:
-      - redis
       - master
-
-  redis:
-    image: redis:6.2-alpine
-    container_name: redis
-    ports:
-      - 6379:6379
-
-  dashboard:
-    build: ./dashboard
-    image: dashboard
-    container_name: dashboard
-    ports:
-      - 9181:9181
-    command: rq-dashboard -H redis
-    depends_on:
-      - redis
 
   webhook:
     build: ./webhook
@@ -57,11 +29,5 @@ services:
     container_name: webhook
     ports:
       - 8888:8888
-    # environment:
-    #   - WEBHOOK_ENDPOINT=http://webhook:8888
     env_file:
       - ./.env.dev
-
-# volumes:
-#   app-volume:
-#     name: app-volume-001

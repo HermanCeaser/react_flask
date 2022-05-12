@@ -142,8 +142,11 @@ def test(coverage):
 @cli.command("run_worker")
 def run_worker():
     """Run application with redis workers"""
-    redis_url = app.config["REDIS_URL"]
-    redis_connection = redis.from_url(redis_url)
+    redis_hostname = app.config["REDIS_HOSTNAME"]
+    redis_password = app.config["REDIS_PASSWORD"]
+    redis_connection = redis.StrictRedis(
+        host=redis_hostname, port=6380, password=redis_password, ssl=True
+    )
     with Connection(redis_connection):
         worker = Worker(app.config["QUEUES"])
         worker.work()

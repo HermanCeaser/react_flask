@@ -77,7 +77,12 @@ def run_async_job():
         byte_datas.append(v.read())
     on_success = current_app.config["JOB_ON_SUCCESS"]
     on_failure = current_app.config["JOB_ON_FAILURE"]
-    with Connection(redis.from_url(current_app.config["REDIS_URL"])):
+    redis_hostname = current_app.config["REDIS_HOSTNAME"]
+    redis_password = current_app.config["REDIS_PASSWORD"]
+    redis_connection = redis.StrictRedis(
+        host=redis_hostname, port=6380, password=redis_password, ssl=True
+    )
+    with Connection(redis_connection):
         q = Queue()
         job = q.enqueue(
             create_job,
@@ -112,7 +117,12 @@ def run_async_job():
 @api.route("/delay/async/jobs/<job_id>", methods=["GET"])
 def get_status(job_id):
     unpacked_object = None
-    with Connection(redis.from_url(current_app.config["REDIS_URL"])):
+    redis_hostname = current_app.config["REDIS_HOSTNAME"]
+    redis_password = current_app.config["REDIS_PASSWORD"]
+    redis_connection = redis.StrictRedis(
+        host=redis_hostname, port=6380, password=redis_password, ssl=True
+    )
+    with Connection(redis_connection):
         q = Queue()
         job = q.fetch_job(job_id)
     if job:

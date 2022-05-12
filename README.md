@@ -3,6 +3,11 @@
 There are 2 apps in this repository: the backend micro service and the frontend client. The backend is managed by python and flask + any SQL DB. The frontend is built with react-native. There is already implemented the auth service in both sides.
 There are 2 main pages in a StackNavigator: Login and Register. The state of app is managed by Redux and after a successful login there is a TabNavigator template ready to be filled.
 
+# Redis Dashboard
+
+[rq-dashboard](https://github.com/Parallels/rq-dashboard) is a general purpose, lightweight, Flask-based web front-end to monitor your RQ queues, jobs, and workers in realtime.
+
+---
 
 ## Delete __pycache__ files
 ```sh

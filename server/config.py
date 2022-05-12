@@ -14,7 +14,8 @@ class Config:
     STATIC_FOLDER = f"{os.getenv('APP_FOLDER')}/client/static"
     MEDIA_FOLDER = f"{os.getenv('APP_FOLDER')}/client/media"
     # Reference: https://python-rq.org/docs
-    REDIS_URL = os.environ.get("REDIS_URL", "redis://localhost:6379/0")
+    REDIS_HOSTNAME = os.environ.get("REDIS_HOSTNAME")
+    REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD")
     QUEUES = ["default"]
     # job_timeout specifies the maximum runtime of the job before it’s \
     # interrupted and marked as failed. Its default unit is second and it can \
@@ -67,7 +68,6 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get(
         "SQLALCHEMY_DATABASE_URI"
     ) or "sqlite:///" + os.path.join(basedir, "data-dev.sqlite")
-    print("SQLALCHEMY_DATABASE_URI", SQLALCHEMY_DATABASE_URI)
 
     @classmethod
     def init_app(cls, app):
@@ -112,11 +112,6 @@ class TestingConfig(Config):
 
 class ProductionConfig(Config):
     SSL_REDIRECT = True if os.environ.get("HTTPS_REDIRECT") else False
-    azure_db_for_mysql = "mysql+pymysql://celebaltartan:password\
-@celebal-tartan-db.mysql.database.azure.com:3306/flaskproddb?ssl_ca=./app/database/DigiCertGlobalRootCA.crt.pem"
-    SQLALCHEMY_DATABASE_URI = os.environ.get(
-        "SQLALCHEMY_DATABASE_URI", azure_db_for_mysql
-    )
 
     @classmethod
     def init_app(cls, app):
