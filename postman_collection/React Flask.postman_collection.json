@@ -356,7 +356,7 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "vaibhav123",
+									"value": "Metro@123456",
 									"type": "string"
 								},
 								{
@@ -375,59 +375,6 @@
 							],
 							"path": [
 								"ping"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "[Root] check static",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{docker_endpoint}}/static/hello.txt",
-							"host": [
-								"{{docker_endpoint}}"
-							],
-							"path": [
-								"static",
-								"hello.txt"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "[Root] check media",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{docker_endpoint}}/media/hello.txt",
-							"host": [
-								"{{docker_endpoint}}"
-							],
-							"path": [
-								"media",
-								"hello.txt"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "[Root] upload media",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{docker_endpoint}}/upload",
-							"host": [
-								"{{docker_endpoint}}"
-							],
-							"path": [
-								"upload"
 							]
 						}
 					},
@@ -602,9 +549,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{local_endpoint}}/api/{{version}}/users/check",
+							"raw": "{{production_endpoint}}/api/{{version}}/users/check",
 							"host": [
-								"{{local_endpoint}}"
+								"{{production_endpoint}}"
 							],
 							"path": [
 								"api",
@@ -644,9 +591,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{local_endpoint}}/api/{{version}}/users",
+							"raw": "{{production_endpoint}}/api/{{version}}/users",
 							"host": [
-								"{{local_endpoint}}"
+								"{{production_endpoint}}"
 							],
 							"path": [
 								"api",
@@ -700,9 +647,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{local_endpoint}}/api/{{version}}/users",
+							"raw": "{{production_endpoint}}/api/{{version}}/users",
 							"host": [
-								"{{local_endpoint}}"
+								"{{production_endpoint}}"
 							],
 							"path": [
 								"api",
@@ -756,9 +703,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{local_endpoint}}/api/{{version}}/users/signin",
+							"raw": "{{production_endpoint}}/api/{{version}}/users/signin",
 							"host": [
-								"{{local_endpoint}}"
+								"{{production_endpoint}}"
 							],
 							"path": [
 								"api",
@@ -802,9 +749,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{local_endpoint}}/api/{{version}}/users/ping",
+							"raw": "{{production_endpoint}}/api/{{version}}/users/ping",
 							"host": [
-								"{{local_endpoint}}"
+								"{{production_endpoint}}"
 							],
 							"path": [
 								"api",
@@ -848,9 +795,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{local_endpoint}}/api/{{version}}/auth/resource",
+							"raw": "{{production_endpoint}}/api/{{version}}/auth/resource",
 							"host": [
-								"{{local_endpoint}}"
+								"{{production_endpoint}}"
 							],
 							"path": [
 								"api",
@@ -894,9 +841,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{local_endpoint}}/api/{{version}}/auth/resource",
+							"raw": "{{production_endpoint}}/api/{{version}}/auth/resource",
 							"host": [
-								"{{local_endpoint}}"
+								"{{production_endpoint}}"
 							],
 							"path": [
 								"api",
@@ -914,9 +861,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{local_endpoint}}/check",
+							"raw": "{{production_endpoint}}/check",
 							"host": [
-								"{{local_endpoint}}"
+								"{{production_endpoint}}"
 							],
 							"path": [
 								"check"
@@ -944,7 +891,7 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "password",
+									"value": "Metro@123456",
 									"type": "string"
 								},
 								{
@@ -957,9 +904,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{local_endpoint}}/ping",
+							"raw": "{{production_endpoint}}/ping",
 							"host": [
-								"{{local_endpoint}}"
+								"{{production_endpoint}}"
 							],
 							"path": [
 								"ping"
@@ -974,9 +921,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{local_endpoint}}/api/{{version}}/delay/check",
+							"raw": "{{production_endpoint}}/api/{{version}}/delay/check",
 							"host": [
-								"{{local_endpoint}}"
+								"{{production_endpoint}}"
 							],
 							"path": [
 								"api",
@@ -1032,9 +979,9 @@
 							]
 						},
 						"url": {
-							"raw": "{{local_endpoint}}/api/{{version}}/delay/sync",
+							"raw": "{{production_endpoint}}/api/{{version}}/delay/sync",
 							"host": [
-								"{{local_endpoint}}"
+								"{{production_endpoint}}"
 							],
 							"path": [
 								"api",
@@ -1089,9 +1036,9 @@
 							]
 						},
 						"url": {
-							"raw": "{{local_endpoint}}/api/{{version}}/delay/async/jobs",
+							"raw": "{{production_endpoint}}/api/{{version}}/delay/async/jobs",
 							"host": [
-								"{{local_endpoint}}"
+								"{{production_endpoint}}"
 							],
 							"path": [
 								"api",
@@ -1110,9 +1057,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{local_endpoint}}/api/{{version}}/delay/async/jobs/{{job_id}}",
+							"raw": "{{production_endpoint}}/api/{{version}}/delay/async/jobs/{{job_id}}",
 							"host": [
-								"{{local_endpoint}}"
+								"{{production_endpoint}}"
 							],
 							"path": [
 								"api",
@@ -1151,13 +1098,13 @@
 	],
 	"variable": [
 		{
-			"key": "local_endpoint",
+			"key": "production_endpoint",
 			"value": "http://localhost:3000",
 			"type": "string"
 		},
 		{
 			"key": "docker_endpoint",
-			"value": "http://localhost:5004",
+			"value": "http://localhost:5000",
 			"type": "string"
 		},
 		{
