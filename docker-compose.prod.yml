@@ -6,3 +6,6 @@ services:
     image: react-flask-app
     ports:
       - "3000:3000"
+  worker:
+    image: react-flask-app
+    command: python3 -u manage.py run_worker

@@ -14,8 +14,10 @@ class Config:
     STATIC_FOLDER = f"{os.getenv('APP_FOLDER')}/client/static"
     MEDIA_FOLDER = f"{os.getenv('APP_FOLDER')}/client/media"
     # Reference: https://python-rq.org/docs
-    REDIS_HOSTNAME = os.environ.get("REDIS_HOSTNAME")
-    REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD")
+    AZURE_REDIS_HOST = os.environ.get("AZURE_REDIS_HOST")
+    AZURE_REDIS_PASSWORD = os.environ.get("AZURE_REDIS_PASSWORD")
+    AZURE_REDIS_PORT = os.environ.get("AZURE_REDIS_PORT", 6379)
+
     QUEUES = ["default"]
     # job_timeout specifies the maximum runtime of the job before it’s \
     # interrupted and marked as failed. Its default unit is second and it can \

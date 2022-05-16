@@ -77,10 +77,14 @@ def run_async_job():
         byte_datas.append(v.read())
     on_success = current_app.config["JOB_ON_SUCCESS"]
     on_failure = current_app.config["JOB_ON_FAILURE"]
-    redis_hostname = current_app.config["REDIS_HOSTNAME"]
-    redis_password = current_app.config["REDIS_PASSWORD"]
+    azure_redis_host = current_app.config["AZURE_REDIS_HOST"]
+    azure_redis_port = current_app.config["AZURE_REDIS_PORT"]
+    azure_redis_password = current_app.config["AZURE_REDIS_PASSWORD"]
     redis_connection = redis.StrictRedis(
-        host=redis_hostname, port=6380, password=redis_password, ssl=True
+        host=azure_redis_host,
+        port=azure_redis_port,
+        password=azure_redis_password,
+        ssl=True,
     )
     with Connection(redis_connection):
         q = Queue()
@@ -117,10 +121,14 @@ def run_async_job():
 @api.route("/delay/async/jobs/<job_id>", methods=["GET"])
 def get_status(job_id):
     unpacked_object = None
-    redis_hostname = current_app.config["REDIS_HOSTNAME"]
-    redis_password = current_app.config["REDIS_PASSWORD"]
+    azure_redis_host = current_app.config["AZURE_REDIS_HOST"]
+    azure_redis_port = current_app.config["AZURE_REDIS_PORT"]
+    azure_redis_password = current_app.config["AZURE_REDIS_PASSWORD"]
     redis_connection = redis.StrictRedis(
-        host=redis_hostname, port=6380, password=redis_password, ssl=True
+        host=azure_redis_host,
+        port=azure_redis_port,
+        password=azure_redis_password,
+        ssl=True,
     )
     with Connection(redis_connection):
         q = Queue()

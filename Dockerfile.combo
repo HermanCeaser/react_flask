@@ -76,8 +76,9 @@ RUN chown -R app:app ./server
 USER app
 
 ENV SQLALCHEMY_DATABASE_URI mysql+pymysql://celebaltartan:CTartan12345@celebal-tartan-db.mysql.database.azure.com:3306/flaskproddb?ssl_ca=./app/database/DigiCertGlobalRootCA.crt.pem
-ENV REDIS_HOSTNAME "CelebalTartan.redis.cache.windows.net"
-ENV REDIS_PASSWORD "gKtowrl1NGs7PBbsga0iYBceuaqE4jYStAzCaMDgPa8="
+ENV AZURE_REDIS_HOST "CelebalTartan.redis.cache.windows.net"
+ENV AZURE_REDIS_PASSWORD "gKtowrl1NGs7PBbsga0iYBceuaqE4jYStAzCaMDgPa8="
+ENV AZURE_REDIS_PORT="6380"
 
 EXPOSE 3000
 WORKDIR /app/server
