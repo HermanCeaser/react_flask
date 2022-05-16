@@ -80,6 +80,5 @@ ENV AZURE_REDIS_HOST "CelebalTartan.redis.cache.windows.net"
 ENV AZURE_REDIS_PASSWORD "gKtowrl1NGs7PBbsga0iYBceuaqE4jYStAzCaMDgPa8="
 ENV AZURE_REDIS_PORT="6380"
 
-EXPOSE 3000
 WORKDIR /app/server
-ENTRYPOINT ["gunicorn", "--bind", "0.0.0.0:3000", "--access-logfile", "-", "--error-logfile", "-", "manage:app"]
+CMD ["python3", "-u", "manage.py", "run_worker"]
