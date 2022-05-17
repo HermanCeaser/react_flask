@@ -36,8 +36,8 @@ jobs:
         with:
           push: true
           tags: acrtartanuat.azurecr.io/tartan_payslip_training/master:${{ github.sha }}
-          file: Dockerfile.combo/Dockerfile
-          context: Dockerfile.combo/
+          file: Dockerfile.combo
+          context: Dockerfile.combo
 
 
   deploy:
