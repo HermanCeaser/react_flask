@@ -7,7 +7,7 @@ on:
     branches: 
       [ creating_single_container_deployment ]
     paths:
-    - 'Dockerfile.combo/**'
+    - '/**'
     - '.github/workflows/containerappcelebaltartan-AutoDeployTrigger-62926b5d-5e79-4750-a86b-1d1ee1ca4cf1.yml'
 
   # Allow mannually trigger 
