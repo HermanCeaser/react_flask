@@ -14,6 +14,21 @@ There are 2 main pages in a StackNavigator: Login and Register. The state of app
 find . | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf
 ```
 
+## Github Action
+
+Most of the Azure services use user-level Azure credentials i.e., Azure Service Principal for deployments.
+
+Follow the steps to create the Azure credentials (Service Principal) : * Run the below [az cli](https://docs.microsoft.com/en-us/cli/azure/?view=azure-cli-latest) command.
+
+### [Set secret with Azure Credentials](https://github.com/Azure/actions-workflow-samples/blob/master/assets/create-secrets-for-GitHub-workflows.md#set-secret-with-azure-credentials)
+
+
+```sh
+az ad sp create-for-rbac --name "myApp" --role contributor \
+                            --scopes /subscriptions/{subscription-id}/resourceGroups/{resource-group} \
+                            --sdk-auth
+```
+
 # Environment Setup
 The command that creates a virtual environment has the following structure:
 ```sh

@@ -158,3 +158,4 @@ client/.pnp.js
 venv
 client/venv
 server/venv
+command.txt
