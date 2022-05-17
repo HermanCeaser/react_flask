@@ -1,8 +1,13 @@
 import os
 
 from app.api import report_failure, report_success
+from dotenv import load_dotenv
 
 basedir = os.path.abspath(os.path.dirname(__file__))
+
+dotenv_path = os.path.join(os.path.dirname(__file__), ".env.dev")
+if os.path.exists(dotenv_path):
+    load_dotenv(dotenv_path)
 
 
 class Config:
