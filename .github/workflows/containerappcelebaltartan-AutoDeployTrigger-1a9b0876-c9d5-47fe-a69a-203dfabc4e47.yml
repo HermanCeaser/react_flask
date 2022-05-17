@@ -49,6 +49,7 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.CONTAINERAPPCELEBALTARTAN_AZURE_CREDENTIALS }}
+          allow-no-subscriptions: true
 
 
       - name: Deploy to containerapp
