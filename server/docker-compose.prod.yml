@@ -16,7 +16,6 @@ services:
       - AZURE_REDIS_HOST=CelebalTartan.redis.cache.windows.net
       - AZURE_REDIS_PASSWORD=gKtowrl1NGs7PBbsga0iYBceuaqE4jYStAzCaMDgPa8=
       - AZURE_REDIS_PORT=6380
-      - APP_FOLDER=/home/app/server/
       - PORT=5000
     restart: always
 
@@ -28,7 +27,6 @@ services:
       - AZURE_REDIS_HOST=CelebalTartan.redis.cache.windows.net
       - AZURE_REDIS_PASSWORD=gKtowrl1NGs7PBbsga0iYBceuaqE4jYStAzCaMDgPa8=
       - AZURE_REDIS_PORT=6380
-      - APP_FOLDER=/home/app/server/
     depends_on:
       - master
 

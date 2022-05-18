@@ -16,8 +16,6 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SSL_REDIRECT = False
     WTF_CSRF_ENABLED = True
-    STATIC_FOLDER = f"{os.getenv('APP_FOLDER')}/client/static"
-    MEDIA_FOLDER = f"{os.getenv('APP_FOLDER')}/client/media"
     # Reference: https://python-rq.org/docs
     AZURE_REDIS_HOST = os.environ.get("AZURE_REDIS_HOST")
     AZURE_REDIS_PASSWORD = os.environ.get("AZURE_REDIS_PASSWORD")
