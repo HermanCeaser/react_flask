@@ -159,3 +159,4 @@ venv
 client/venv
 server/venv
 command.txt
+client/.env.production

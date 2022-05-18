@@ -1,12 +1,11 @@
 # This Dockerfile builds the server only.
-
 ###########
 # BUILDER #
 ###########
 # pull official base image
 FROM python:3.10-slim-buster as builder
 # set work directory
-WORKDIR /usr/src/app/server
+WORKDIR /usr/src/app/server/webhook
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
@@ -17,13 +16,10 @@ RUN apt-get update && \
 # lint
 RUN pip install --upgrade pip
 RUN pip install flake8==3.9.1
-COPY ./server/ /usr/src/app/server/
+RUN pip install Flask==2.0.3
+COPY ./server/webhook/ /usr/src/app/server/webhook/
 RUN flake8 --exclude __init__.py --ignore=T001,T003,E402 ./ --max-line-length=250
-# install python dependencies
-COPY ./server/requirements/common.txt requirements/common.txt
-COPY ./server/requirements/production.txt requirements/production.txt
-RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/server/wheels -r requirements/production.txt
-
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/server/webhook/wheels Flask==2.0.3
 
 #########
 # FINAL #
@@ -32,23 +28,17 @@ RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/server/wheels -r
 FROM python:3.10-slim-buster
 # create the app user
 RUN addgroup --system app && adduser --system --group app
-# create the appropriate directories
-ENV HOME=/home/app/
-ENV SERVER_HOME=$HOME/server/
-RUN mkdir $SERVER_HOME
-WORKDIR $SERVER_HOME
 # install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends netcat
-COPY --from=builder /usr/src/app/server/wheels /wheels
-COPY --from=builder /usr/src/app/server/requirements/production.txt ./requirements/production.txt
+# create the appropriate directories
+WORKDIR /app
+COPY --from=builder /usr/src/app/server/webhook/wheels /wheels
+COPY --from=builder /usr/src/app/server/webhook/app.py /app/app.py
 RUN pip install --upgrade pip
 RUN pip install --no-cache /wheels/*
-# copy source code
-COPY ./server/app $SERVER_HOME/app
-# COPY server/migrations $SERVER_HOME/migrations
-COPY ./server/manage.py server/config.py $SERVER_HOME
 # chown all the files to the app user
-RUN chown -R app:app $SERVER_HOME
+RUN chown -R app:app ./
 # change to the app user
 USER app
-EXPOSE 5000
+EXPOSE 8888
+ENTRYPOINT ["python3", "-u", "app.py", "-h", "0.0.0.0"]

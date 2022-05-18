@@ -62,24 +62,15 @@ COPY --from=builder /usr/src/app/server/wheels /wheels
 COPY --from=builder /usr/src/app/server/requirements/production.txt ./requirements/production.txt
 RUN pip install --upgrade pip
 RUN pip install --no-cache /wheels/*
-
 RUN mkdir ./server
 # copy source code
 COPY ./server/app ./server/app
 # COPY server/migrations ./server/migrations
 COPY ./server/manage.py server/config.py ./server/
-
 # chown all the files to the app user
 RUN chown -R app:app ./server
-
 # change to the app user
 USER app
-
-ENV SQLALCHEMY_DATABASE_URI mysql+pymysql://celebaltartan:CTartan12345@celebal-tartan-db.mysql.database.azure.com:3306/flaskproddb?ssl_ca=./app/database/DigiCertGlobalRootCA.crt.pem
-ENV AZURE_REDIS_HOST "CelebalTartan.redis.cache.windows.net"
-ENV AZURE_REDIS_PASSWORD "gKtowrl1NGs7PBbsga0iYBceuaqE4jYStAzCaMDgPa8="
-ENV AZURE_REDIS_PORT="6380"
-
 EXPOSE 3000
 WORKDIR /app/server
 ENTRYPOINT ["gunicorn", "--bind", "0.0.0.0:3000", "--access-logfile", "-", "--error-logfile", "-", "manage:app"]
