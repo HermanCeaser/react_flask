@@ -72,4 +72,4 @@ RUN chown -R app:app ./server
 # change to the app user
 USER app
 WORKDIR /app/server
-CMD ["python3", "-u", "manage.py", "run_worker"]
+ENTRYPOINT ["python3", "-u", "manage.py", "run_worker"]
