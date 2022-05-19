@@ -2,7 +2,7 @@ services:
   master:
     build:
       context: .
-      dockerfile: Dockerfile.combo
+      dockerfile: Dockerfile.master
     image: react-flask-app
     ports:
       - "3000:3000"

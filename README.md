@@ -66,8 +66,8 @@ SECRET_KEY="d68653675379485599f7876a3b469a57"
 
 # Quick Start for Production CI/CD
 ```
-$ docker-compose -f docker-compose.prod.azure.yml down -v
-$ docker-compose -f docker-compose.prod.azure.yml up -d --build --scale worker=4
+$ docker-compose -f docker-compose.prod.yml down -v
+$ docker-compose -f docker-compose.prod.yml up -d --build --scale worker=4
 ```
 
 UI Application and APIs will be up at http://localhost:3000
