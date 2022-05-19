@@ -176,7 +176,8 @@ def run_webhook():
             "public_ip": app.config["PUBLIC_IP"],
             "is_port_open": app.config["IS_PORT_OPEN"],
             "api_port": app.config["API_PORT"],
-            "webhook_endpoint": app.config["WEBHOOK_ENDPOINT"],
+            "WEBHOOK_ENDPOINT": app.config["WEBHOOK_ENDPOINT"],
+            "REACT_APP_API_URL": app.config["REACT_APP_API_URL"]
         }
     )
 
