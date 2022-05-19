@@ -8,7 +8,7 @@ on:
       [ creating_single_container_deployment ]
     paths:
     - '**'
-    - '.github/workflows/tartancontainerapp-AutoDeployTrigger-b341d0f3-e946-4b5d-bc29-4aea581a3f45.yml'
+    - '.github/workflows/containerapp-AutoDeployTrigger-master.yml'
 
   # Allow mannually trigger 
   workflow_dispatch:      
