@@ -8,7 +8,7 @@ on:
       [ creating_single_container_deployment ]
     paths:
     - '**'
-    - '.github/workflows/containerapp-AutoDeployTrigger-master.yml'
+    - '.github/workflows/containerapp-AutoDeployTrigger.yml'
 
   # Allow mannually trigger 
   workflow_dispatch:      
@@ -39,6 +39,14 @@ jobs:
           file: ./Dockerfile.master
           context: ./
 
+      - name: Build and push container image to registry
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: acrtartanuat.azurecr.io/tartan_payslip_training/worker:${{ github.sha }}
+          file: ./Dockerfile.worker
+          context: ./
+
 
   deploy:
     runs-on: ubuntu-latest
@@ -58,3 +66,12 @@ jobs:
             az config set extension.use_dynamic_install=yes_without_prompt
             az containerapp registry set -n tartancontainerapp -g UAT --server acrtartanuat.azurecr.io --username  ${{ secrets.TARTANCONTAINERAPP_REGISTRY_USERNAME }} --password ${{ secrets.TARTANCONTAINERAPP_REGISTRY_PASSWORD }}
             az containerapp update -n tartancontainerapp -g UAT --image acrtartanuat.azurecr.io/tartan_payslip_training/master:${{ github.sha }} --container-name master
+
+
+      - name: Deploy to containerapp
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az config set extension.use_dynamic_install=yes_without_prompt
+            az containerapp registry set -n tartancontainerapp -g UAT --server acrtartanuat.azurecr.io --username  ${{ secrets.TARTANCONTAINERAPP_REGISTRY_USERNAME }} --password ${{ secrets.TARTANCONTAINERAPP_REGISTRY_PASSWORD }}
+            az containerapp update -n tartancontainerapp -g UAT --image acrtartanuat.azurecr.io/tartan_payslip_training/worker:${{ github.sha }} --container-name worker
