@@ -32,6 +32,7 @@ class Config:
     PUBLIC_IP, IS_PORT_OPEN = get_public_ip(API_PORT)
     # Webhook endpoint to send automatic response after job success or failure
     WEBHOOK_ENDPOINT = os.environ.get("WEBHOOK_ENDPOINT")
+    REACT_APP_API_URL = os.environ.get("REACT_APP_API_URL")
     print("WEBHOOK_ENDPOINT", WEBHOOK_ENDPOINT)
     if IS_PORT_OPEN and not WEBHOOK_ENDPOINT:
         WEBHOOK_ENDPOINT = "{}/webhook".format(PUBLIC_IP)
