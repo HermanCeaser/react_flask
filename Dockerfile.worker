@@ -11,7 +11,7 @@ COPY client/package.json /app/package.json
 COPY client/package-lock.json /app/package-lock.json
 COPY client/postcss.config.js /app/postcss.config.js
 COPY client/tailwind.config.js /app/tailwind.config.js
-COPY client/.env.production /usr/src/app/.env.production
+COPY client/.env.production /app/.env.production
 # Same as npm install
 RUN npm ci
 COPY client/ /app/
