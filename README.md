@@ -64,6 +64,19 @@ You can add this secret in environment variables as follows:
 SECRET_KEY="d68653675379485599f7876a3b469a57"
 ```
 
+# Quick Start for Production CI/CD
+```
+$ docker-compose -f docker-compose.prod.azure.yml down -v
+$ docker-compose -f docker-compose.prod.azure.yml up -d --build --scale worker=4
+```
+
+UI Application and APIs will be up at http://localhost:3000
+
+APIs will be up at http://localhost:3000/
+Example: http://localhost:3000/check, http://localhost:3000/api/v1/users/check, http://localhost:3000/api/v1/delay/check
+
+```Dockerfile.webhook``` can be useful to create seperate webhook endpoint image.
+
 # Quick Start for Production
 ```
 $ docker-compose -f docker-compose.prod.yml down -v

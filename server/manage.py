@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+import pprint
 
 import click
 import redis
@@ -154,6 +155,30 @@ def run_worker():
     with Connection(redis_connection):
         worker = Worker(app.config["QUEUES"])
         worker.work()
+
+
+@app.route("/webhook", methods=["GET", "POST"])
+def run_webhook():
+    try:
+        data = eval(request.data)
+    except Exception:
+        data = request.data
+    print()
+    print("Webhook received following output ...")
+    print()
+    pprint.pprint(data)
+    print("----------" * 10)
+    print()
+    print()
+    return jsonify(
+        {
+            "data_received": data,
+            "public_ip": app.config["PUBLIC_IP"],
+            "is_port_open": app.config["IS_PORT_OPEN"],
+            "api_port": app.config["API_PORT"],
+            "webhook_endpoint": app.config["WEBHOOK_ENDPOINT"],
+        }
+    )
 
 
 if __name__ == "__main__":

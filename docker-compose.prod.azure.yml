@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     image: react-flask-app
-    command: gunicorn --bind 0.0.0.0:5000 --access-logfile - --error-logfile - manage:app
+    command: gunicorn --bind 0.0.0.0:3000 --access-logfile - --error-logfile - manage:app
     ports:
       - "3000:3000"
     env_file:
@@ -14,14 +14,5 @@ services:
     command: python3 -u manage.py run_worker
     depends_on:
       - master
-    env_file:
-      - ./.env
-  webhook:
-    build:
-      context: .
-      dockerfile: Dockerfile.webhook
-    image: react-flask-app-webhook
-    ports:
-      - 8888:8888
     env_file:
       - ./.env

@@ -15,12 +15,3 @@ services:
     image: react-flask-app-redis
     env_file:
       - ./.env
-  webhook:
-    build:
-      context: .
-      dockerfile: Dockerfile.webhook
-    image: react-flask-app-webhook
-    ports:
-      - 8888:8888
-    env_file:
-      - ./.env

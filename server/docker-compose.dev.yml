@@ -22,12 +22,3 @@ services:
       - ./.env.dev
     depends_on:
       - master
-
-  webhook:
-    build: ./webhook
-    image: webhook
-    container_name: webhook
-    ports:
-      - 8888:8888
-    env_file:
-      - ./.env.dev

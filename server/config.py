@@ -1,9 +1,17 @@
 import os
+import sys
 
 from app.api import report_failure, report_success
 from dotenv import load_dotenv
 
-basedir = os.path.abspath(os.path.dirname(__file__))
+from public_ip import get_public_ip
+
+try:
+    basedir = os.path.abspath(os.path.dirname(__file__))
+except NameError:
+    basedir = os.path.abspath(os.path.dirname("."))
+
+sys.path.insert(0, basedir)
 
 dotenv_path = os.path.join(os.path.dirname(__file__), ".env.dev")
 if os.path.exists(dotenv_path):
@@ -20,6 +28,17 @@ class Config:
     AZURE_REDIS_HOST = os.environ.get("AZURE_REDIS_HOST")
     AZURE_REDIS_PASSWORD = os.environ.get("AZURE_REDIS_PASSWORD")
     AZURE_REDIS_PORT = os.environ.get("AZURE_REDIS_PORT", 6379)
+    API_PORT = int(os.environ.get("API_PORT", 3000))
+    PUBLIC_IP, IS_PORT_OPEN = get_public_ip(API_PORT)
+    # Webhook endpoint to send automatic response after job success or failure
+    WEBHOOK_ENDPOINT = os.environ.get("WEBHOOK_ENDPOINT")
+    print("WEBHOOK_ENDPOINT", WEBHOOK_ENDPOINT)
+    if IS_PORT_OPEN and not WEBHOOK_ENDPOINT:
+        WEBHOOK_ENDPOINT = "{}/webhook".format(PUBLIC_IP)
+    print("WEBHOOK_ENDPOINT", WEBHOOK_ENDPOINT)
+    print("API_PORT", API_PORT)
+    print("PUBLIC_IP", PUBLIC_IP)
+    print("IS_PORT_OPEN", IS_PORT_OPEN)
 
     QUEUES = ["default"]
     # job_timeout specifies the maximum runtime of the job before it’s \
@@ -58,8 +77,6 @@ class Config:
     # https://github.com/rq/rq/blob/master/rq/queue.py
     JOB_META = None
     JOB_RETRY = None
-    # Webhook endpoint to send automatic response after job success or failure
-    WEBHOOK_ENDPOINT = "http://webhook:8888"
     DEBUG = False
     TESTING = False
 

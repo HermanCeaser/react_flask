@@ -30,6 +30,7 @@ FROM python:3.10-slim-buster
 RUN addgroup --system app && adduser --system --group app
 # install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends netcat
+RUN apt-get install curl -y
 # create the appropriate directories
 WORKDIR /app
 COPY --from=builder /usr/src/app/server/webhook/wheels /wheels

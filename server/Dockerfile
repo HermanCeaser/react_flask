@@ -11,6 +11,7 @@ ENV PYTHONUNBUFFERED 1
 
 # install system dependencies
 RUN apt-get update && apt-get install -y netcat
+RUN apt-get install curl -y
 
 # copy dependencies
 COPY requirements/common.txt requirements/common.txt
@@ -23,7 +24,7 @@ RUN pip install -r requirements/production.txt
 # copy source code
 COPY app app
 # COPY migrations migrations
-COPY manage.py config.py ./
+COPY manage.py config.py public_ip.py ./
 
 # runtime configuration
 EXPOSE 5000

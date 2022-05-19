@@ -4,14 +4,14 @@ name: Trigger auto deployment for tartancontainerapp
 on:
   # Automatically trigger it when detected changes in repo
   push:
-    branches: 
+    branches:
       [ creating_single_container_deployment ]
     paths:
     - '**'
     - '.github/workflows/tartancontainerapp-AutoDeployTrigger-b341d0f3-e946-4b5d-bc29-4aea581a3f45.yml'
 
-  # Allow mannually trigger 
-  workflow_dispatch:      
+  # Allow mannually trigger
+  workflow_dispatch:
 
 jobs:
   build:
@@ -43,7 +43,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    
+
     steps:
       - name: Azure Login
         uses: azure/login@v1

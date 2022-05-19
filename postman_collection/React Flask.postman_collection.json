@@ -9,6 +9,35 @@
 			"name": "Docker",
 			"item": [
 				{
+					"name": "[Root] webhook",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"var1\":\"val1\",\r\n    \"var2\":\"val2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{docker_endpoint}}/webhook",
+							"host": [
+								"{{docker_endpoint}}"
+							],
+							"path": [
+								"webhook"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "[User] check",
 					"request": {
 						"method": "GET",
@@ -421,12 +450,6 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "webhook_endpoint",
-									"value": "http://52.172.224.181:5000",
-									"type": "text",
-									"disabled": true
-								},
-								{
 									"key": "delay",
 									"value": "5",
 									"type": "text"
@@ -481,7 +504,8 @@
 								{
 									"key": "webhook_endpoint",
 									"value": "http://52.172.224.181:5000",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "delay",
@@ -956,12 +980,6 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "webhook_endpoint",
-									"value": "http://52.172.224.181:5000",
-									"type": "text",
-									"disabled": true
-								},
-								{
 									"key": "delay",
 									"value": "5",
 									"type": "text"
@@ -1016,7 +1034,8 @@
 								{
 									"key": "webhook_endpoint",
 									"value": "http://52.172.224.181:5000",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "delay",
@@ -1072,6 +1091,35 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "[Root] webhook",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"var1\":\"val1\",\r\n    \"var2\":\"val2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{production_endpoint}}/webhook",
+							"host": [
+								"{{production_endpoint}}"
+							],
+							"path": [
+								"webhook"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
@@ -1111,18 +1159,6 @@
 			"key": "version",
 			"value": "v1",
 			"type": "string"
-		},
-		{
-			"key": "token",
-			"value": ""
-		},
-		{
-			"key": "user_id",
-			"value": ""
-		},
-		{
-			"key": "job_id",
-			"value": ""
 		}
 	]
 }

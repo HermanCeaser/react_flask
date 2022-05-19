@@ -58,6 +58,7 @@ WORKDIR /app
 COPY --from=build /app/build ./build
 # install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends netcat
+RUN apt-get install curl -y
 COPY --from=builder /usr/src/app/server/wheels /wheels
 COPY --from=builder /usr/src/app/server/requirements/production.txt ./requirements/production.txt
 RUN pip install --upgrade pip
@@ -66,7 +67,7 @@ RUN mkdir ./server
 # copy source code
 COPY ./server/app ./server/app
 # COPY server/migrations ./server/migrations
-COPY ./server/manage.py server/config.py ./server/
+COPY ./server/manage.py ./server/public_ip.py server/config.py ./server/
 # chown all the files to the app user
 RUN chown -R app:app ./server
 # change to the app user

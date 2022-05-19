@@ -10,32 +10,15 @@ services:
     container_name: master
     ports:
       - 5004:5000
-    environment:
-      - SQLALCHEMY_DATABASE_URI=mysql+pymysql://celebaltartan:password@celebal-tartan-db.mysql.database.azure.com:3306/flaskdevdb?ssl_ca=./app/database/DigiCertGlobalRootCA.crt.pem
-      - SECRET_KEY=d68653675379485599f7876a3b469a57
-      - AZURE_REDIS_HOST=CelebalTartan.redis.cache.windows.net
-      - AZURE_REDIS_PASSWORD=gKtowrl1NGs7PBbsga0iYBceuaqE4jYStAzCaMDgPa8=
-      - AZURE_REDIS_PORT=6380
-      - PORT=5000
+    env_file:
+      - ./.env.dev
     restart: always
 
 
   worker:
     image: master
     command: python3 -u manage.py run_worker
-    environment:
-      - AZURE_REDIS_HOST=CelebalTartan.redis.cache.windows.net
-      - AZURE_REDIS_PASSWORD=gKtowrl1NGs7PBbsga0iYBceuaqE4jYStAzCaMDgPa8=
-      - AZURE_REDIS_PORT=6380
+    env_file:
+      - ./.env.dev
     depends_on:
       - master
-
-
-  webhook:
-    build: ./webhook
-    image: webhook
-    container_name: webhook
-    ports:
-      - 8888:8888
-    environment:
-      - WEBHOOK_ENDPOINT=http://webhook:8888

@@ -46,6 +46,7 @@ WORKDIR $SERVER_HOME
 
 # install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends netcat
+RUN apt-get install curl -y
 COPY --from=builder /usr/src/app/wheels /wheels
 COPY --from=builder /usr/src/app/requirements/production.txt ./requirements/production.txt
 RUN pip install --upgrade pip
@@ -54,7 +55,7 @@ RUN pip install --no-cache /wheels/*
 # copy source code
 COPY app $SERVER_HOME/app
 # COPY migrations migrations
-COPY manage.py config.py $SERVER_HOME
+COPY manage.py config.py public_ip.py $SERVER_HOME
 
 # chown all the files to the app user
 RUN chown -R app:app $SERVER_HOME
