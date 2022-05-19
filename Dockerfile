@@ -74,4 +74,4 @@ RUN chown -R app:app ./server
 USER app
 EXPOSE 3000
 WORKDIR /app/server
-ENTRYPOINT ["gunicorn", "--bind", "0.0.0.0:3000", "--access-logfile", "-", "--error-logfile", "-", "manage:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:3000", "--access-logfile", "-", "--error-logfile", "-", "manage:app"]
